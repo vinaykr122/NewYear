@@ -117,7 +117,8 @@
 
     <div class="container">
         <h1>Happy New Year 2025!</h1>
-        <p>Start the year with joy by sending a personalized New Year's message!</p>
+        <p>Wishing you a year filled with endless joy, success, and cherished moments. Happy New Year!</p>
+        <p id="personalized-message"></p> <!-- Personalized message will appear here -->
         <button class="share-btn" onclick="handleShareClick()">Share Now</button>
     </div>
 
@@ -132,6 +133,17 @@
     </div>
 
     <script>
+        // Function to check the URL for the "name" parameter and display personalized message
+        window.onload = function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var name = urlParams.get('name');
+
+            if (name) {
+                // Display personalized message on the page
+                document.getElementById('personalized-message').innerHTML = `Happy New Year from ${name}! 🎉`;
+            }
+        }
+
         // Handle the "Share Now" button click
         function handleShareClick() {
             // Get the current click count from localStorage, default to 0
@@ -159,19 +171,15 @@
         function generateMessage() {
             var name = document.getElementById('name-input').value;
             if (name) {
-                // Update the message format to say "Happy New Year from [Name]"
-                var message = `Happy New Year from ${name}! 🎉 Wishing you all the best in 2025. Let's make this year unforgettable!`;
-
-                // Link (You can replace this with any dynamic URL based on the name)
-                var link = `https://www.yourwebsite.com/${encodeURIComponent(name)}`;
-
+                var message = `Happy New Year from ${name}! 🎉`;
                 var personalizedMessage = document.getElementById('personalized-message');
                 personalizedMessage.innerHTML = message;
 
+                var websiteLink = window.location.href.split('?')[0] + "?name=" + encodeURIComponent(name);  // Add name as query param
                 var generatedLink = document.getElementById('generated-link');
                 generatedLink.innerHTML = `
                     <p>Click below to share your message:</p>
-                    <a href="https://wa.me/?text=${encodeURIComponent(message + " " + link)}" target="_blank">Share via WhatsApp</a>
+                    <a href="https://wa.me/?text=${encodeURIComponent(message + ' Visit this link to share: ' + websiteLink)}" target="_blank">Share via WhatsApp</a>
                 `;
 
                 document.getElementById('name-input').value = ''; // Clear input field
