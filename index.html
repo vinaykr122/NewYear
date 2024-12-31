@@ -159,14 +159,19 @@
         function generateMessage() {
             var name = document.getElementById('name-input').value;
             if (name) {
-                var message = `Happy New Year, ${name}! 🎉`;
+                // Update the message format to say "Happy New Year from [Name]"
+                var message = `Happy New Year from ${name}! 🎉 Wishing you all the best in 2025. Let's make this year unforgettable!`;
+
+                // Link (You can replace this with any dynamic URL based on the name)
+                var link = `https://www.yourwebsite.com/${encodeURIComponent(name)}`;
+
                 var personalizedMessage = document.getElementById('personalized-message');
                 personalizedMessage.innerHTML = message;
 
                 var generatedLink = document.getElementById('generated-link');
                 generatedLink.innerHTML = `
                     <p>Click below to share your message:</p>
-                    <a href="https://wa.me/?text=${encodeURIComponent(message)}" target="_blank">Share via WhatsApp</a>
+                    <a href="https://wa.me/?text=${encodeURIComponent(message + " " + link)}" target="_blank">Share via WhatsApp</a>
                 `;
 
                 document.getElementById('name-input').value = ''; // Clear input field
